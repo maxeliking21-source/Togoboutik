@@ -8,17 +8,6 @@ module.exports = {
         'wa-dark': '#1da851',
         promo: '#FF6B00',
         ink: '#1a1a1a',
-      },
-    },
-  },
-  plugins: [],
-};
-ink: '#1a1a1a',
-      colors: {
-        wa: '#25D366',
-        'wa-dark': '#1da851',
-        promo: '#FF6B00',
-        ink: '#1a1a1a',
         arav: {
           100: '#EDE9FE',
           200: '#DDD6FE',
@@ -27,3 +16,7 @@ ink: '#1a1a1a',
           500: '#8B5CF6',
         },
       },
+    },
+  },
+  plugins: [],
+};
