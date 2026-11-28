@@ -1,9 +1,14 @@
 import { createClient } from '@supabase/supabase-js';
+import { CONFIG } from './config';
 
-export const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://example.supabase.co',
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'missing-key'
-);
+// Le fichier config.js (modifiable sur GitHub) passe avant les variables Vercel.
+// Une adresse invalide ne fait plus échouer la construction du site.
+const bonneUrl = (u) => typeof u === 'string' && /^https?:\/\/[^\s/]+\.[^\s/]+\/?$/.test(u.trim());
+const nettoyer = (u) => (typeof u === 'string' ? u.trim().replace(/\/rest\/v1\/?$/, '').replace(/\/+$/, '') : '');
+const urlChoisie = [CONFIG.SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_URL].map(nettoyer).find(bonneUrl);
+const cleChoisie = CONFIG.SUPABASE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'missing-key';
+
+export const supabase = createClient(urlChoisie || 'https://example.supabase.co', cleChoisie.trim());
 
 export const VILLES = ['Lomé', 'Atakpamé', 'Kara', 'Sokodé', 'Kpalimé', 'Dapaong', 'Tsévié'];
 export const CATEGORIES = ['Vêtements', 'Chaussures', 'Cosmétiques', 'Téléphones', 'Alimentaire', 'Autre'];
